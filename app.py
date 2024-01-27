@@ -5,6 +5,8 @@ import os
 
 videoPath = ""
 
+defaultTitleText = "Please, select video file"
+
 
 def chooseFile():
     global videoPath
@@ -13,8 +15,12 @@ def chooseFile():
         title="Select file",
         filetypes=(("videos", "*.mp4"), ("all files", "*.*")),
     )
-    videoPath = fileName
-    convertFileBtn["state"] = tk.NORMAL
+    if fileName.endswith("mp4"):
+        videoPath = fileName
+        convertFileBtn["state"] = tk.NORMAL
+        title["text"] = "Now convert to mp3"
+    else:
+        title["text"] = "Wrong format!"
 
 
 def convertVideo():
@@ -28,19 +34,25 @@ def convertVideo():
     videoFile.close()
     audioFile.close()
     videoPath = ""
+    title["text"] = defaultTitleText
 
 
 root = tk.Tk()
+root.title("mp3 converter")
 
-frame = tk.Frame(root, pady=10, padx=10)
+
+frame = tk.Frame(root, pady=20, padx=20)
 frame.grid()
 
-chooseFileBtn = tk.Button(frame, text="Choose video file", command=chooseFile)
-chooseFileBtn.grid(column=0, row=0)
+title = tk.Label(frame, text="Please, select video file")
+title.grid(column=0, row=0, columnspan=2)
+
+chooseFileBtn = tk.Button(frame, text=defaultTitleText, command=chooseFile)
+chooseFileBtn.grid(column=0, row=1)
 
 convertFileBtn = tk.Button(
     frame, text="Convert to mp3", command=convertVideo, state=tk.DISABLED
 )
-convertFileBtn.grid(column=1, row=0)
+convertFileBtn.grid(column=1, row=1)
 
 root.mainloop()
