@@ -44,10 +44,10 @@ root.title("mp3 converter")
 frame = tk.Frame(root, pady=20, padx=20)
 frame.grid()
 
-title = tk.Label(frame, text="Please, select video file")
+title = tk.Label(frame, text=defaultTitleText)
 title.grid(column=0, row=0, columnspan=2)
 
-chooseFileBtn = tk.Button(frame, text=defaultTitleText, command=chooseFile)
+chooseFileBtn = tk.Button(frame, text="Choose file", command=chooseFile)
 chooseFileBtn.grid(column=0, row=1)
 
 convertFileBtn = tk.Button(
